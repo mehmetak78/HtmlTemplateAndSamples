@@ -1,0 +1,50 @@
+
+/*
+    position: absolute finds its place relative to the first upper component whose position: relative
+    By doing this strategy we can put all children to the first place
+    Below, by giving different Modifiers, (BEM(Block ELement Modifier) Pattern) we can arrange the images overlapped,
+        but on different places
+    outline-offset: 2rem;
+    outline: 1.5rem solid $color-primary;   => draws a rectangle around the image, but I didn't use it.
+ */
+
+.imageshow {
+    position: relative;
+    &__photo {
+        width: 55%;
+        box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+        border-radius: 10px;
+        position: absolute;
+        z-index: 10;
+        transition: all .2s;
+        //outline-offset: 2rem;
+
+        &--p1 {
+            left: 0;
+            top: -2rem;
+        }
+
+        &--p2 {
+            right: 0;
+            top: 2rem;
+        }
+
+        &--p3 {
+            left: 20%;
+            top: 10rem;
+        }
+
+        &:hover {
+          //  outline: 1.5rem solid $color-primary;
+            transform: scale(1.25) translateY(-.1rem);
+            box-shadow: 0 2.5rem 4rem rgba($color-black, .5);
+            z-index: 20;
+        }
+
+    }
+
+    &:hover &__photo:not(:hover) {
+        transform: scale(.85);
+    }
+    //composition:hover composition__photo:not(:hover) {
+}
