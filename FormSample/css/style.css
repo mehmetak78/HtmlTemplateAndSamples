@@ -1,0 +1,325 @@
+/*
+    * => Universal Selector which selects every element in the page.
+    box-sizing: inherit; => forces inheritance for this property. By default it is not inherited.
+    *::after,*::before => We want all after and before virtual elements will use these definations.
+*/
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+/*
+    Root font size, which will be used in all "rem" decleration calculations, is set in html selector.
+    font-size: 62.5%; => %62.5 of default font size of the browser. If the user hasn't changed, it is usually 16px and so 16*%62.5 = 10px.
+ */
+html {
+  font-size: 62.5%; }
+
+body {
+  box-sizing: border-box; }
+
+/*
+    font properties are usually inherited. So thet will be inherited to all elements in the body. Thats why we define font properties in body
+    To Use Lato font we have included it from google fonts in index.html => <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    line-heignt: 1.7; => 1.7 times of the default value.
+    box-sizing: border-box; => Since we put "box-sizing-inherit in the * selector, all the elements inside body will be inherited from this decleration.
+    box-sizing: border-box => borders and the paddings are no more added to the total width and total hight for a specified box
+*/
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem; }
+
+/*
+  To center a text, put it into a div and use an utitiltiy class, who has a single goal, which is to center the text inside
+ */
+.u-center-text {
+  text-align: center !important; }
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem !important; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem !important; }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem !important; }
+
+.u-margin-top-big {
+  margin-top: 8rem !important; }
+
+.u-margin-top-huge {
+  margin-top: 10rem !important; }
+
+/*
+    margin: 0 auto; =>  When we use auto, left and right margins will be same. so the element will be centered.
+    &:not(:last-child) { => if it is not the last child element, then it will be selected.
+    width: calc((100% - 6rem) / 2); => we need to use calc() because they will be calculated after compiled to css.
+                        we also have to use # in calc() function if we use a sass variable.
+    @include clearfix; => Since all of the elements of div are floated, the div has 0 height. In order to fix it we use clearfix.
+                        will be compiled as .row::after {........}
+ */
+.row {
+  max-width: 114rem;
+  margin: 0 auto;
+  /*
+  attribute selector,
+      [class^="col-"] => all the elements who has a class attribute starting with "col-".
+                          ^= means the attribute starts with "col-"
+                          *= means the attribute contains "col-"
+                          $= means the attribute ends with "col-"
+                          we can also use src, etc.
+  */ }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row [class^="col-"] {
+    float: left; }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem; }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem) / 2); }
+  .row .col-1-of-3 {
+    width: calc((100% - 2 * 6rem) / 3); }
+  .row .col-2-of-3 {
+    width: calc(2 * ((100% - 2 * 6rem) / 3) + 6rem); }
+  .row .col-1-of-4 {
+    width: calc((100% - 3 * 6rem) / 4); }
+  .row .col-2-of-4 {
+    width: calc(2 * ((100% - 3 * 6rem) / 4) + 6rem); }
+  .row .col-3-of-4 {
+    width: calc(3 * ((100% - 3 * 6rem) / 4) + 2 * 6rem); }
+
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(to right bottom, #7ed56f, #28b485); }
+
+/*
+  background-size: 100%; => Here it is exactly same as cover property of image.
+    background-image: linear-gradient(105deg,
+                                    rgba($color-white, .9) 0%,
+                                    rgba($color-white, .9) 50%,
+                                    transparent 50%) ,
+                            url(../../img/nat-10.jpg); => puts the white  part over the image with an angle
+                              which is solid gradient
+                                at %0 : white
+                                at %50 : white
+                                at %50 : transparent (here it is a valid color which means no color
+                                then the image is under this one.
+                            Instead of using clip path, we can also use this.
+ */
+.book {
+  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(../../img/nat-10.jpg);
+  background-size: 100%;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+  height: 50rem; }
+  .book__form {
+    width: 50%;
+    padding: 6rem; }
+
+.btn {
+  /*
+        .btn:link => link is a sudo class. Sudo classes are special states of a selector.
+        .btn:visited => Another sudo class. ex: First the color is black but after once clicked to the link it is blue.
+        display: inline-block; Since thhe btn element was a simple test it was inline, so we change the display to inline-block
+                inline-block : inline in width, block in height.
+                You should always do that if you use padding, heights, widths
+        This is the properties for initial state
+        transition: all .2s => Shortens all the transitions to .2 seconds.
+    */
+  /*.btn, .btn:link, .btn:visited*/
+  /*
+        .btn:hover  => When the button is over the element
+        box-shadow: 2px 15px 50px rgba(0,0,0,.5); => x y blur color
+    */
+  /*
+        .btn:active => when the button is clicked
+        transform: translateY(-1px); => -1px is relative to the initial state
+    */
+  /*
+        .btn-white::after => we want the background-color white for only the btn-white.
+    */
+  /*
+        .btn::after => adds like a virtual element right after the element that were selected. Then we can style the element.
+        content: ""; => this is always necessary. It doesn't matter it is empty (""), but there must be specified
+        display: inline-block; => this must be specified. We want the same as the btn thats why it is inline-block.
+        height: 100%;
+        width: 100%;    => will be exactly same with the button.
+        border-radius: 100px; => will be exactly same with the button.
+        position: absolute;
+        top: 0;
+        left: 0;    => relative to the first parent element whose position is "relative". In this case :button.
+        z-index: -1; => defines the position of elements if they are one of top on an other.
+    */
+  /*
+        animation-fill-mode: backwards;=> applys the 0% of animation before the animation starts. So the button will not be visible at the beginning
+    */ }
+  .btn, .btn:link, .btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 10rem;
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem;
+    border: none;
+    cursor: pointer; }
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    /*
+            We want to make it bigger and see just only when hover the button
+        */
+    /*.btn:hover::after*/ }
+    .btn:hover::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  .btn:active, .btn:focus {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+  .btn--white {
+    background-color: #fff;
+    color: #777; }
+    .btn--white::after {
+      background-color: #fff; }
+  .btn--green {
+    background-color: #55c57a;
+    color: #fff; }
+    .btn--green::after {
+      background-color: #55c57a; }
+  .btn::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s; }
+  .btn--animated {
+    animation: moveInBottom .5s ease-out .75s;
+    animation-fill-mode: backwards; }
+
+.btn-text:link, .btn-text:visited {
+  font-size: 1.6rem;
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  transition: all .2s; }
+
+.btn-text:hover {
+  background-color: #55c57a;
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); }
+
+.btn-text:active {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0); }
+
+.form {
+  /*
+        font-family: inherit;
+        color: inherit; => inherits the font-family,color manually since input element's does'nt inherit them.
+        &::-webkit-input-placeholder => sets the placeholder's color.
+     */
+  /*
+        &__input:placeholder-shown + &__label => Sibling selector. Both label and input are the children of a parent element form-group.
+            when the placeholder shonw in input element we can style label like this. "+" selects the next sibling element of input which is label here.
+            label must be just after the input in html for using like this.
+            if there were other elements between label and input then we should use "~" which is general sibling selector.
+        opacity: 0;
+        visibility: hidden;  => we use opacity too, not just visibility because we can not animate visibility.
+     */
+  /*
+        Since we can not style the radio button of html from css, we use a trick.
+        We style the label of radio button in a <span> element and then hide the input of radio.
+        Although the radio button is hidden, since it is connected through label, it will be selected when we click the label.
+        By doing so, we are creating a new button which we can style by using css as below.
+     */
+  /*
+        General sibling selector. We should also use "+" here, but just for sample we used general sibling selector (~)
+        When the radio button is checked, select radio-button::after and sets its opacity to 1.
+     */ }
+  .form__group:not(:last-child) {
+    margin-bottom: 2rem; }
+  .form__input {
+    font-size: 1.5rem;
+    font-family: inherit;
+    color: inherit;
+    padding: 1.5rem 2rem;
+    border-radius: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 90%;
+    display: block;
+    transition: all .3s; }
+    .form__input:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #55c57a; }
+    .form__input:focus:invalid {
+      border-bottom: 3px solid #ff7730; }
+    .form__input::-webkit-input-placeholder {
+      color: #999; }
+  .form__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    margin-top: .7rem;
+    display: block;
+    transition: all .3s; }
+  .form__input:placeholder-shown + .form__label {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4rem); }
+  .form__radio-group {
+    width: 49%;
+    display: inline-block; }
+  .form__radio-input {
+    display: none; }
+  .form__radio-label {
+    font-size: 1.6rem;
+    cursor: pointer;
+    position: relative;
+    padding-left: 4.5rem; }
+  .form__radio-button {
+    height: 3rem;
+    width: 3rem;
+    border: 5px solid #55c57a;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: -.4rem; }
+    .form__radio-button::after {
+      content: "";
+      display: block;
+      height: 1.3rem;
+      width: 1.3rem;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #55c57a;
+      opacity: 0;
+      transition: opacity .2s; }
+  .form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
+    opacity: 1; }
