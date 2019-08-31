@@ -1,0 +1,26 @@
+
+/*
+    font properties are usually inherited. So thet will be inherited to all elements in the body. Thats why we define font properties in body
+    To Use Lato font we have included it from google fonts in index.html => <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    line-heignt: 1.7; => 1.7 times of the default value.
+    box-sizing: border-box; => Since we put "box-sizing-inherit in the * selector, all the elements inside body will be inherited from this decleration.
+    box-sizing: border-box => borders and the paddings are no more added to the total width and total hight for a specified box
+*/
+
+
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /*font-size: 16px;*/
+  line-height: 1.7;
+  color: $color-grey-dark;
+  padding: 3rem;
+}
+
+
+.heading-tertiary {
+  font-size: $default-font-size;
+  font-weight: 700;
+  text-transform: uppercase;
+}
